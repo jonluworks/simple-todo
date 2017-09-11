@@ -8,6 +8,7 @@ import addAssertions from 'extend-tape';
 
 
 import App from '../../src/App';
+import AddTodo from "../../src/addTodo/AddTodo.component";
 
 const test = addAssertions(tape, { jsxEquals });
 const renderer = new ShallowRenderer();
@@ -21,9 +22,8 @@ test('testing proper output of App component', (assert) => {
 
   const expected = (
     <div className='app-class'>
-      <h1>
-        My App
-      </h1>
+      <h1>Todo List</h1>
+      <AddTodo/>
     </div>
   );
 
