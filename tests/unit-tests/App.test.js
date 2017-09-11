@@ -16,7 +16,7 @@ const submitTodo = function () {
 }
 
 test('testing proper output of App component', (assert) => {
-  const component = createComponent(<App/>);
+  const component = createComponent(<App submitTodo={()=>{}} todos={[]} />);
 
   assert.ok(component, 'component cam be created');
 

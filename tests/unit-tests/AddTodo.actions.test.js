@@ -1,15 +1,15 @@
 import { SUBMIT_TODO, submitTodo } from '../../src/addTodo/AddTodo.actions';
 import test from 'tape';
 
-test('add todo should create an action to add a todo', assert => {
+test('testing todo action creator', assert => {
   const todoText = 'A todo';
   const expectedAction = {
     type: SUBMIT_TODO,
-    id: 1,
     text: todoText
   };
 
-  assert.deepEqual(submitTodo(todoText), expectedAction);
+  assert.deepEqual(submitTodo(todoText), expectedAction,
+    'add todo should create an action to add a todo');
   assert.end();
 
 });

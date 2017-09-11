@@ -20,14 +20,12 @@ test('testing putting an action through the root reducer', assert => {
 
   const todoAction = {
     type: SUBMIT_TODO,
-    id: 1,
     text: todoText
   };
 
   const expectedState = {
     todos: [
       {
-        id: 1,
         text: todoText
       }
     ]

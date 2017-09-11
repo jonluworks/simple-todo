@@ -12,7 +12,6 @@ export const TodoReducer = (state = initialState, action) => {
         todos: [
           ...state.todos,
           {
-            id: action.id,
             text: action.text,
           },
         ],
