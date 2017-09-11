@@ -12,7 +12,9 @@ const test = addAssertions(tape, { jsxEquals});
 const renderer = new ShallowRenderer();
 
 test('testing AddTodo component', assert => {
-  const component = createComponent(<AddTodo/>);
+  const submitTodo = function() {};
+
+  const component = createComponent(<AddTodo submitTodo={submitTodo} />);
   assert.ok(component, 'component should exist');
   assert.equal(component.findByQuery('input').length, 1,
     'component should have an input');

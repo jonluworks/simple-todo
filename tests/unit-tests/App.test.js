@@ -7,28 +7,18 @@ import jsxEquals from '../utils/reactElementToJsxString';
 import addAssertions from 'extend-tape';
 
 
-import App from '../../src/App';
-import AddTodo from "../../src/addTodo/AddTodo.component";
+import { App } from '../../src/App';
 
 const test = addAssertions(tape, { jsxEquals });
 const renderer = new ShallowRenderer();
+const submitTodo = function () {
+
+}
 
 test('testing proper output of App component', (assert) => {
   const component = createComponent(<App/>);
 
-  assert.equal(component.props.className, 'app-class');
+  assert.ok(component, 'component cam be created');
 
-  renderer.render(<App/>);
-
-  const expected = (
-    <div className='app-class'>
-      <h1>Todo List</h1>
-      <AddTodo/>
-    </div>
-  );
-
-  const actual = renderer.getRenderOutput();
-
-  assert.jsxEquals(actual, expected);
   assert.end();
 });

@@ -1,13 +1,26 @@
 import React from 'react';
-import AddTodo from "./addTodo/AddTodo.component";
+import { connect } from 'react-redux';
 
-const App = () => {
+import AddTodo from "./addTodo/AddTodo.component";
+import { submitTodo } from "./addTodo/AddTodo.actions";
+
+export const App = () => {
   return (
-    <div className='app-class'>
-      <h1>Todo List</h1>
-      <AddTodo/>
-    </div>
+      <div>
+        <h1>Todo List</h1>
+        <AddTodo submitTodo={submitTodo}/>
+      </div>
   );
 };
 
-export default App;
+const mapStateToProps = state => state.TodoReducer;
+
+const mapDispatchToProps = dispatch => ({
+  submitTodo: text => {
+    if (text) {
+      dispatch(submitTodo(text))
+    }
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

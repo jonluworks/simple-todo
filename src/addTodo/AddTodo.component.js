@@ -7,7 +7,8 @@ const AddTodo = ({ submitTodo }) => {
       <form>
         <input className='todo-input'/>
         <button type='submit'
-                className='todo-submit'>
+                className='todo-submit'
+                onClick={submitTodo}>
           Add Todo
         </button>
       </form>
