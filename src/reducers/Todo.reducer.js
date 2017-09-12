@@ -20,22 +20,26 @@ export const TodoReducer = (state = initialState, action) => {
       };
     case REMOVE_TODO:
       let updatedTodos = state.todos.slice();
-      updatedTodos.splice(action.index, 1);
+      const removedTodo = updatedTodos.splice(action.index, 1)[0];
       return {
         ...state,
-        todos: updatedTodos
+        todos: updatedTodos,
+        lastDeleted: removedTodo.text,
       };
     case UNDO_REMOVETODO:
-      return {
-        ...state,
-        todos: [
-          ...state.todos,
-          {
-            text: state.lastDeleted
-          }
-        ],
-        lastDeleted: null,
-      };
+      if (state.lastDeleted !== null) {
+        return {
+          ...state,
+          todos: [
+            ...state.todos,
+            {
+              text: state.lastDeleted
+            }
+          ],
+          lastDeleted: null,
+        };
+      }
+      return state;
     default:
       return state;
   }

@@ -11,12 +11,15 @@ import { App } from '../../src/App';
 
 const test = addAssertions(tape, { jsxEquals });
 const renderer = new ShallowRenderer();
-const submitTodo = function () {
-
-}
 
 test('testing proper output of App component', (assert) => {
-  const component = createComponent(<App submitTodo={()=>{}} todos={[]} />);
+  const removeTodo = function() {};
+  const undoTodo = function() {};
+  const submitTodo = function() {};
+  const component = createComponent(<App submitTodo={submitTodo}
+                                         todos={[]}
+                                         removeTodo={removeTodo}
+                                         undoTodo={undoTodo} />);
 
   assert.ok(component, 'component cam be created');
 

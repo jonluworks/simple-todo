@@ -68,11 +68,11 @@ test('test removing a todo using remove todo action', assert => {
       { text: 'todo 5'},
       { text: 'todo 6'},
     ],
-    lastDeleted: null,
+    lastDeleted: 'todo 3',
   };
 
   assert.deepEqual(TodoReducer(initialState, todoAction), expectedState,
-    'we should be able to remove a todo by index');
+    'we should be able to remove a todo by index and it should set the lastdeleted property correctly');
 
   assert.end();
 });
@@ -82,7 +82,7 @@ test('test undelete a todo', assert => {
     type: UNDO_REMOVETODO
   };
 
-  const initialState = {
+  let initialState = {
     todos: [
       { text: 'todo 1'},
       { text: 'todo 2'},
@@ -94,7 +94,7 @@ test('test undelete a todo', assert => {
     lastDeleted: 'todo 7'
   };
 
-  const expectedState = {
+  let expectedState = {
     todos: [
       { text: 'todo 1'},
       { text: 'todo 2'},
@@ -109,6 +109,19 @@ test('test undelete a todo', assert => {
 
   assert.deepEqual(TodoReducer(initialState, todoAction), expectedState,
     'we should be able to undo a delete action');
+
+  initialState = {
+    todos: [],
+    lastDeleted: null,
+  };
+
+  expectedState = {
+    todos: [],
+    lastDeleted: null
+  };
+
+  assert.deepEqual(TodoReducer(initialState, todoAction), expectedState,
+    'undoing on an empty todo list should do nothing to the list');
 
   assert.end();
 });
