@@ -1,9 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TodoList = ({todos}) => {
+const TodoList = ({todos, removeTodo}) => {
 
-  const renderTodos = () => todos.map( (todo, index) => <li key={index} >{todo.text}</li>);
+  const deleteTodo = index => {
+    removeTodo(index);
+  };
+
+  const renderTodos = () => todos.map( (todo, index) => (
+    <li key={index} >
+      <button onClick={() => {deleteTodo(index)}}>X</button>
+      {todo.text}
+    </li>
+  ));
 
   return (
     <ul>

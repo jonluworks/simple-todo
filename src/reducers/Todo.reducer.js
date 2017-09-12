@@ -1,4 +1,5 @@
 import { SUBMIT_TODO } from "../addTodo/AddTodo.actions";
+import { REMOVE_TODO } from "../todoList/TodoList.actions";
 
 export const initialState = {
   todos: []
@@ -15,6 +16,14 @@ export const TodoReducer = (state = initialState, action) => {
             text: action.text,
           },
         ],
+      };
+    case REMOVE_TODO:
+      console.log('der[')
+      let updatedTodos = state.todos.slice();
+      updatedTodos.splice(action.index, 1);
+      return {
+        ...state,
+        todos: updatedTodos
       };
     default:
       return state;
