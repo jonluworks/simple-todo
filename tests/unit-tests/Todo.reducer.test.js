@@ -2,12 +2,13 @@ import test from 'tape';
 
 import { TodoReducer } from '../../src/reducers/Todo.reducer';
 import { SUBMIT_TODO } from "../../src/addTodo/AddTodo.actions";
-import {REMOVE_TODO} from "../../src/todoList/TodoList.actions";
+import {REMOVE_TODO, UNDO_REMOVETODO} from "../../src/todoList/TodoList.actions";
 
 test('testing initial state of root reducer', assert => {
 
   const expectedState = {
-    todos: []
+    todos: [],
+    lastDeleted: null,
   };
 
   assert.deepEqual(TodoReducer(undefined, {type:null}), expectedState,
@@ -29,7 +30,8 @@ test('testing adding an action using the submit todo action', assert => {
       {
         text: todoText
       }
-    ]
+    ],
+    lastDeleted: null,
   };
 
   assert.deepEqual(TodoReducer(undefined, todoAction), expectedState,
@@ -54,7 +56,8 @@ test('test removing a todo using remove todo action', assert => {
       { text: 'todo 4'},
       { text: 'todo 5'},
       { text: 'todo 6'},
-    ]
+    ],
+    lastDeleted: null,
   };
 
   const expectedState = {
@@ -64,11 +67,48 @@ test('test removing a todo using remove todo action', assert => {
       { text: 'todo 4'},
       { text: 'todo 5'},
       { text: 'todo 6'},
-    ]
+    ],
+    lastDeleted: null,
   };
 
   assert.deepEqual(TodoReducer(initialState, todoAction), expectedState,
     'we should be able to remove a todo by index');
+
+  assert.end();
+});
+
+test('test undelete a todo', assert => {
+  const todoAction = {
+    type: UNDO_REMOVETODO
+  };
+
+  const initialState = {
+    todos: [
+      { text: 'todo 1'},
+      { text: 'todo 2'},
+      { text: 'todo 3'},
+      { text: 'todo 4'},
+      { text: 'todo 5'},
+      { text: 'todo 6'},
+    ],
+    lastDeleted: 'todo 7'
+  };
+
+  const expectedState = {
+    todos: [
+      { text: 'todo 1'},
+      { text: 'todo 2'},
+      { text: 'todo 3'},
+      { text: 'todo 4'},
+      { text: 'todo 5'},
+      { text: 'todo 6'},
+      { text: 'todo 7'},
+    ],
+    lastDeleted: null
+  };
+
+  assert.deepEqual(TodoReducer(initialState, todoAction), expectedState,
+    'we should be able to undo a delete action');
 
   assert.end();
 });
